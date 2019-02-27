@@ -1,4 +1,4 @@
-# oc\_p5\_open\_food\_facts
+# oc\_p05\_open\_food\_facts
 
 Project #5 in OC Python course
 
