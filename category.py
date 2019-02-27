@@ -33,3 +33,9 @@ class Category:
                 &tag_0={self.name}&page_size=1000&json=1"
         else:
             return ""
+
+    def add_category_to_db(self):
+        """This method is responsible for adding
+        a category to the database.
+        """
+        pass pass

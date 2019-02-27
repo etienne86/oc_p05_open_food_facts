@@ -26,6 +26,8 @@ PRODUCT_ATTRIBUTES = [
         self.url = "" # type is string
         self.countries = "" # type is string
 
-    def abc(self):
-        """This method is responsible for xyz."""
+    def add_product_to_db(self):
+        """This method is responsible for adding
+        a product to the database.
+        """
         pass pass

@@ -12,6 +12,7 @@ import requests
 
 from category import Category
 from product import Product
+from product_store import ProductStore
 from store import Store
 
 
@@ -20,7 +21,7 @@ def add_store_to_db(new_store):
     pass pass
 
 
-def add_product_to_database(new_product):
+def add_product_to_database(prod):
     """docstring"""
     pass pass
 
@@ -32,41 +33,37 @@ def sub_main():
             api_return = desserts_20.json() # type is dict
             products_list = api_return["products"] # type is list of dict
             # iterate on each product
-            for product_dict in products_list:
+            for item in products_list:
                 # initiate a new instance of product
-                new_product = Product()
+                prod = Product()
                 # filter on:
                 # - products containing "France" in the list of countries
-                # - products with 'nutrition_grade_fr' completed
+                # - products with 'nutrition_grade_fr' and 'code' completed
                 regexp = "(.*)[Ff]rance(.*)"
-                if re.match(regexp, product_dict["countries"]) is not None
-                        and "nutrition_grade_fr" in product_dict.keys():
+                if re.match(regexp, item["countries"]) is not None \
+                        and "nutrition_grade_fr" in item.keys() \
+                        and "code" in item.keys():
                     # set the product attributes
-                    new_product.nutrition_grade_fr = product_dict["nutrition_grade_fr"]
-                    new_product.code = product_dict["code"]
-                    new_product.product_name = product_dict["product_name"]
-                    new_product.nutrition_score_fr_100g = product_dict["nutrition_score_fr_100g"]
-                    new_product.nutrition_score_uk_100g = product_dict["nutrition_score_uk_100g"]
-                    new_product.url = product_dict["url"]
+                    prod.nutrition_grade_fr = item["nutrition_grade_fr"]
+                    prod.code = item["code"]
+                    prod.product_name = item["product_name"]
+                    prod.nutrition_score_fr_100g = item["nutrition_score_fr_100g"]
+                    prod.nutrition_score_uk_100g = item["nutrition_score_uk_100g"]
+                    prod.url = item["url"]
 
                     # if applicable, link the stores and the product
                     try:
-                        stores_list = [each_store.strip() for each_store in product_dict["stores"].split(",")]
+                        stores_list = [shop.strip() for shop in item["stores"].split(",")]
                     except KeyError: # no store mentioned here
                         # skip this step
                         continue
                     else:
-                        for item in stores_list:
-                            if item in STORES_LIST: # store already initiated
-                                .add_code(new_product.code)
-                            else:
-                                new_store = Store(item)
-                                new_store.add_code(new_product.code)
-                                # add the store to the database
-                                add_store_to_db(new_store)
-
-                    # add the product to the database
-                    add_product_to_database(new_product)
+                        for shop in stores_list:
+                            shop.add_store_to_db() # add to the database, if necessary
+                            prod_shop = ProductStore(prod.code, shop)
+                            prod_shop.sql_insert() # update the database
+                # add the product to the database
+                prod.add_product_to_db()
 
 
 
