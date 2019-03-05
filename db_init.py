@@ -1,12 +1,16 @@
 #! /usr/bin/env python3
 # coding: utf-8
 
-"""Please execute this module to initiate the database pur_beurre_05"""
+"""Please execute this module to initiate the database pur_beurre_05.
+Pre-requisites:
+- the database 'pur_beurre_05' has to be created
+- all privileges have to be granted to user 'pur_guest' on 'pur_beurre_05'
+"""
 
 
 import mysql.connector
 
-from sql_init import *
+from sql_db_init import *
 
 
 def main():

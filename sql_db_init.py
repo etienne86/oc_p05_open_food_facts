@@ -23,37 +23,38 @@ SQL_TABLES_CREATIONS = [
     """,
     """
     CREATE TABLE Product (
-            code INT UNSIGNED NOT NULL,
+            id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+            code BIGINT UNSIGNED NOT NULL,
             product_name VARCHAR(1000) NOT NULL,
-            nutrition_grade_fr VARCHAR(1),
-            nutrition_score_fr_100g INT,
-            nutrition_score_uk_100g INT,
+            nutrition_grade_fr VARCHAR(1) NOT NULL,
+            nutrition_score_fr_100g INT NOT NULL,
+            nutrition_score_uk_100g INT NOT NULL,
             url VARCHAR(1000) NOT NULL,
-            PRIMARY KEY (code)
+            PRIMARY KEY (id)
     )
     ENGINE=INNODB;
     """,
     """
     CREATE TABLE ProductCategory (
-                    product_code INT UNSIGNED NOT NULL,
-                    category_name INT UNSIGNED NOT NULL,
-                    PRIMARY KEY (product_code, category_name)
+                    product_id INT UNSIGNED NOT NULL,
+                    category_id INT UNSIGNED NOT NULL,
+                    PRIMARY KEY (product_id, category_id)
     )
     ENGINE=INNODB;
     """,
     """
     CREATE TABLE ProductStore (
-                    product_code INT UNSIGNED NOT NULL,
-                    store_name INT UNSIGNED NOT NULL,
-                    PRIMARY KEY (product_code, store_name)
+                    product_id INT UNSIGNED NOT NULL,
+                    store_id INT UNSIGNED NOT NULL,
+                    PRIMARY KEY (product_id, store_id)
     )
     ENGINE=INNODB;
     """,
     """
     CREATE TABLE SavedProduct (
-                    substitute_code INT UNSIGNED NOT NULL,
-                    product_code INT UNSIGNED NOT NULL,
-                    PRIMARY KEY (substitute_code, product_code)
+                    substitute_id INT UNSIGNED NOT NULL,
+                    product_id INT UNSIGNED NOT NULL,
+                    PRIMARY KEY (substitute_id, product_id)
     )
     ENGINE=INNODB;
     """
@@ -63,48 +64,48 @@ SQL_FK = [
     """
     ALTER TABLE ProductStore
     ADD CONSTRAINT store_product_store_fk
-    FOREIGN KEY (store_name)
-    REFERENCES Store (name)
+    FOREIGN KEY (store_id)
+    REFERENCES Store (id)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION;
     """,
     """
     ALTER TABLE ProductCategory
     ADD CONSTRAINT category_product_category_fk
-    FOREIGN KEY (category_name)
-    REFERENCES Category (name)
+    FOREIGN KEY (category_id)
+    REFERENCES Category (id)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION;
     """,
     """
     ALTER TABLE SavedProduct
     ADD CONSTRAINT product_saved_product_fk
-    FOREIGN KEY (product_code)
-    REFERENCES Product (code)
+    FOREIGN KEY (product_id)
+    REFERENCES Product (id)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION;
     """,
     """
     ALTER TABLE ProductStore
     ADD CONSTRAINT product_product_store_fk
-    FOREIGN KEY (product_code)
-    REFERENCES Product (code)
+    FOREIGN KEY (product_id)
+    REFERENCES Product (id)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION;
     """,
     """
     ALTER TABLE ProductCategory
     ADD CONSTRAINT product_product_category_fk
-    FOREIGN KEY (product_code)
-    REFERENCES Product (code)
+    FOREIGN KEY (product_id)
+    REFERENCES Product (id)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION;
     """,
     """
     ALTER TABLE SavedProduct
     ADD CONSTRAINT product_saved_product_fk1
-    FOREIGN KEY (substitute_code)
-    REFERENCES Product (code)
+    FOREIGN KEY (substitute_id)
+    REFERENCES Product (id)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION;
     """
