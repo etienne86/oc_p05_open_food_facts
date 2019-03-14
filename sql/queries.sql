@@ -2,14 +2,21 @@
 -- as administrator (user 'root'), to create a user ('pur_guest'),
 -- a database ('pur_beurre_05'), and privileges for this user on this database.
 
--- We create a user
+-- create a user
 CREATE USER 'pur_guest'@'localhost'; -- password is useless
 
 
--- We create the database pur_beurre_05
+-- create the database pur_beurre_05
 CREATE DATABASE pur_beurre_05 CHARACTER SET 'utf8mb4';
 USE pur_beurre_05;
 
 
--- We assign rights to this user on the database
+-- assign rights to this user on the database
 GRANT ALL PRIVILEGES ON pur_beurre_05.* TO 'pur_guest'@'localhost';
+
+
+-- display the list of products in one category
+SELECT Product.id, Product.code FROM Product
+JOIN ProductCategory ON Product.id = ProductCategory.product_id
+JOIN Category ON ProductCategory.category_id = Category.id
+WHERE Category.id = 0;

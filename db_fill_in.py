@@ -21,17 +21,16 @@ def main():
     """doctrinsg"""
 
     # connect to the database pur_beurre_05
-    connexion = mysql.connector.connect(host="localhost",
-                                        user="pur_guest",
-                                        database="pur_beurre_05"
+    connection = mysql.connector.connect(host="localhost",
+                                         user="pur_guest",
+                                         database="pur_beurre_05"
                                         )
 
-    # iterate on each category pre-selected
+    # iterate on each pre-selected category
     for categ_name in Category.CATEGORIES_LIST:
-    #for categ_name in ["desserts"]:
         categ = Category(categ_name)
         # add the category to the database
-        categ.add_category_to_db(connexion)
+        categ.add_category_to_db(connection)
         # execute the HTTP request to get products with API
         categ_1k = requests.get(categ.get_url_1k_products())
         categ_1k_dict = categ_1k.json()
@@ -48,23 +47,28 @@ def main():
                 regexp = "(.*)[Ff]rance(.*)"
                 if (re.match(regexp, item["countries"]) is not None) \
                         and ("code" in item.keys()) \
-                        and ("nutrition_grade_fr" in item.keys()) \
-                        and ("nutrition-score-fr_100g" in item["nutriments"].keys()) \
-                        and ("nutrition-score-uk_100g" in item["nutriments"].keys()):
+                        and ("nutrition_grade_fr" in item.keys()):
                     # set the product attributes
                     prod.code = int(item["code"])
                     prod.product_name = item["product_name"]
                     prod.nutrition_grade_fr = item["nutrition_grade_fr"]
-                    prod.nutrition_score_fr_100g = \
+                    try:
+                        prod.nutrition_score_fr_100g = \
                             int(item["nutriments"]["nutrition-score-fr_100g"])
-                    prod.nutrition_score_uk_100g = \
+                    except:
+                        pass # let nutrition_score_fr_100g per default as -999
+                             # especially for beverage
+                    try:
+                        prod.nutrition_score_uk_100g = \
                             int(item["nutriments"]["nutrition-score-uk_100g"])
+                    except:
+                        pass # let nutrition_score_fr_100g per default as -999
+                             # especially for beverage
                     prod.url = item["url"]
-                    print("produit = ", prod.code)
                     # add the product to the database, if necessary
-                    prod.add_product_to_db(connexion)
+                    prod.add_product_to_db(connection)
                     # update the database (table ProductCategory), if necessary
-                    prod.add_product_category_to_db(categ_name, connexion)
+                    prod.add_product_category_to_db(categ_name, connection)
                     # if applicable, link the stores and the product
                     try:
                         shop_names = [
@@ -78,12 +82,12 @@ def main():
                             # initiate a new instance of store
                             shop = Store(shop_name)
                             # add the store to the database, if necessary
-                            shop.add_store_to_db(connexion)
+                            shop.add_store_to_db(connection)
                             # update the database (table ProductStore)
-                            prod.add_product_store_to_db(shop_name, connexion)
+                            prod.add_product_store_to_db(shop_name, connection)
 
-    # close the connexion to the database
-    connexion.close()
+    # close the connection to the database
+    connection.close()
 
 
 if __name__ == "__main__":

@@ -22,14 +22,14 @@ class Category:
 
     def __init__(self, name):
         """This special method is the class constructor."""
-        self.name = name # type is string
+        self.name = name # type is str
 
-    def add_category_to_db(self, connexion):
+    def add_category_to_db(self, connection):
         """This method is responsible for adding
         a category to the database.
         """
         # initiate a cursor
-        cursor = connexion.cursor()
+        cursor = connection.cursor()
         # check if the category already exists in database
         cursor.execute("""SELECT name FROM Category
                           WHERE name = %s""", (self.name, ))
@@ -39,7 +39,7 @@ class Category:
             cursor.execute("""INSERT INTO Category (name)
                               VALUES (%(name)s)""", self.__dict__)
             # commit the changes
-            connexion.commit()
+            connection.commit()
 
     def get_url_1k_products(self):
         """This method is responsible for supplying the search url,

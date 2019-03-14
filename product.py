@@ -10,19 +10,19 @@ class Product:
     def __init__(self):
         """This special method is the class constructor."""
         self.code = 0 # type is int
-        self.product_name = "" # type is string
-        self.nutrition_grade_fr = "" # type is string
+        self.product_name = "" # type is str
+        self.nutrition_grade_fr = "" # type is str
         self.nutrition_score_fr_100g = -999 # type is int
         self.nutrition_score_uk_100g = -999 # type is int
-        self.url = "" # type is string
-        self.countries = "" # type is string
+        self.url = "" # type is str
+        self.countries = "" # type is str
 
-    def add_product_category_to_db(self, category_name, connexion):
+    def add_product_category_to_db(self, category_name, connection):
         """This method is responsible for inserting a record,
         in table ProductCategory, to link a product and a category.
         """
         # initiate a cursor
-        cursor = connexion.cursor()
+        cursor = connection.cursor()
         # get category_id from category_name
         cursor.execute("""SELECT id FROM Category
                           WHERE name = %s""", (category_name, ))
@@ -50,14 +50,14 @@ class Product:
                                   VALUES (%s, %s)""", (product_id,
                                                        category_id))
                 # commit the changes
-                connexion.commit()
+                connection.commit()
 
-    def add_product_store_to_db(self, store_name, connexion):
+    def add_product_store_to_db(self, store_name, connection):
         """This method is responsible for inserting a record,
         in table ProductStore, to link a product and a store.
         """
         # initiate a cursor
-        cursor = connexion.cursor()
+        cursor = connection.cursor()
         # get store_id from store_name
         cursor.execute("""SELECT id FROM Store
                           WHERE name = %s""", (store_name, ))
@@ -84,14 +84,14 @@ class Product:
                                   VALUES (%s, %s)""", (product_id,
                                                        store_id))
                 # commit the changes
-                connexion.commit()
+                connection.commit()
 
-    def add_product_to_db(self, connexion):
+    def add_product_to_db(self, connection):
         """This method is responsible for adding
         a product to the database.
         """
         # initiate a cursor
-        cursor = connexion.cursor()
+        cursor = connection.cursor()
         # check if the product already exists in database
         cursor.execute("""SELECT code FROM Product
                           WHERE code = %s""", (self.code, ))
@@ -112,4 +112,4 @@ class Product:
                                       %(url)s)
                            """, self.__dict__)
             # commit the changes
-            connexion.commit()
+            connection.commit()

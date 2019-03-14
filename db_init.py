@@ -10,31 +10,31 @@ Pre-requisites:
 
 import mysql.connector
 
-from sql_db_init import *
+import sql_db_init
 
 
 def main():
     """docstring"""
-    
-    # We connect to the database pur_beurre_05
-    connexion = mysql.connector.connect(host="localhost",
-                                        user="pur_guest",
-                                        database="pur_beurre_05"
-                                        )
 
-    # We initiate a cursor
-    cursor = connexion.cursor()
-    
-    # We create the tables
-    for sql_request in SQL_TABLES_CREATIONS:
+    # connect to the database pur_beurre_05
+    connection = mysql.connector.connect(host="localhost",
+                                 user="pur_guest",
+                                 database="pur_beurre_05"
+                                )
+
+    # initiate a cursor
+    cursor = connection.cursor()
+
+    # create the tables
+    for sql_request in sql_db_init.SQL_TABLES_CREATIONS:
         cursor.execute(sql_request)
 
-    # We add the foreign keys
-    for sql_request in SQL_FK:
+    # add the foreign keys
+    for sql_request in sql_db_init.SQL_FK:
         cursor.execute(sql_request)
 
-    # We close the connexion to the database
-    connexion.close()
+    # close the connection to the database
+    connection.close()
 
 
 if __name__ == "__main__":

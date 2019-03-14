@@ -10,7 +10,7 @@ class Store:
 
     def __init__(self, name):
         """This special method is the class constructor."""
-        self.name = name # type is string
+        self.name = name # type is str
 
     def add_store_to_db(self, connexion):
         """This method is responsible for adding
