@@ -4,6 +4,8 @@
 """This module contains the 'Category' class."""
 
 
+import random
+
 class Category:
     """This class is used to represent the categories,
     used to classify the products."""
@@ -41,11 +43,52 @@ class Category:
             # commit the changes
             connection.commit()
 
+    def best_prod(self, connection):
+        """This method is responsible for determining the best product
+        inside the category, considering nutrition data.
+        """
+        best_nutri_score_fr = -999
+        # initiate a cursor
+        cursor = connection.cursor()
+        # determine the best nutri-score in the category
+        cursor.execute("""SELECT Category.name,
+                                 MIN(Product.nutrition_score_fr_100g) AS mini
+                          FROM Category
+                          LEFT JOIN ProductCategory
+                          ON Category.id = ProductCategory.category_id
+                          LEFT JOIN Product
+                          ON Product.id = ProductCategory.product_id
+                          WHERE Category.name = %s""", (self.name, ))
+        rows = cursor.fetchall()
+        if rows:
+            best_nutri_score_fr = rows[0][1]
+        # select lines with the best nutriscore_fr
+        cursor.execute("""SELECT Category.name, Product.id, Product.code,
+                                 Product.product_name,
+                                 Product.nutrition_grade_fr,
+                                 Product.nutrition_score_fr_100g,
+                                 Product.url
+                          FROM Product
+                          LEFT JOIN ProductCategory
+                          ON Product.id = ProductCategory.product_id
+                          LEFT JOIN Category
+                          ON Category.id = ProductCategory.category_id
+                          WHERE Product.nutrition_score_fr_100g = %s
+                            AND Category.name = %s""",
+                          (best_nutri_score_fr, self.name))
+        rows = cursor.fetchall()
+        # there has to be at least one line in rows
+        rand = random.randint(0, len(rows) - 1)
+        # select and return a random product among the best ones
+        return rows[rand] # type is tuple
+        # (Category.name, Product.id, Product.code, Product.name,
+        #  Product.nutrition_grade_fr, Product.nutrition_score_fr_100g,
+        #  Product.url)
+
     def get_url_1k_products(self):
         """This method is responsible for supplying the search url,
         which displays 1000 products, based on the category name."""
         if self.name in Category.CATEGORIES_LIST:
             return f"https://fr.openfoodfacts.org/cgi/search.pl?action=process&tagtype_0=categories&tag_contains_0=contains&tag_0={self.name}&page_size=1000&json=1"
-                    #https://fr.openfoodfacts.org/cgi/search.pl?action=process&tagtype_0=categories&tag_contains_0=contains&tag_0=desserts&page_size=20&json=1
         else:
             return ""

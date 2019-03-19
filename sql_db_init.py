@@ -28,7 +28,6 @@ SQL_TABLES_CREATIONS = [
             product_name VARCHAR(1000) NOT NULL,
             nutrition_grade_fr VARCHAR(1) NOT NULL,
             nutrition_score_fr_100g INT NOT NULL,
-            nutrition_score_uk_100g INT NOT NULL,
             url VARCHAR(1000) NOT NULL,
             PRIMARY KEY (id)
     )
@@ -52,9 +51,10 @@ SQL_TABLES_CREATIONS = [
     """,
     """
     CREATE TABLE SavedProduct (
-                    substitute_id INT UNSIGNED NOT NULL,
                     product_id INT UNSIGNED NOT NULL,
-                    PRIMARY KEY (substitute_id, product_id)
+                    substitute_id INT UNSIGNED NOT NULL,
+                    save_date DATE NOT NULL,
+                    PRIMARY KEY (product_id, substitute_id)
     )
     ENGINE=INNODB;
     """

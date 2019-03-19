@@ -13,9 +13,7 @@ class Product:
         self.product_name = "" # type is str
         self.nutrition_grade_fr = "" # type is str
         self.nutrition_score_fr_100g = -999 # type is int
-        self.nutrition_score_uk_100g = -999 # type is int
         self.url = "" # type is str
-        self.countries = "" # type is str
 
     def add_product_category_to_db(self, category_name, connection):
         """This method is responsible for inserting a record,
@@ -102,13 +100,11 @@ class Product:
                                                    product_name,
                                                    nutrition_grade_fr,
                                                    nutrition_score_fr_100g,
-                                                   nutrition_score_uk_100g,
                                                    url)
                               VALUES (%(code)s,
                                       %(product_name)s,
                                       %(nutrition_grade_fr)s,
                                       %(nutrition_score_fr_100g)s,
-                                      %(nutrition_score_uk_100g)s,
                                       %(url)s)
                            """, self.__dict__)
             # commit the changes

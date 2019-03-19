@@ -14,6 +14,7 @@ Users can enter any kind of food into the terminal, so that they can be suggeste
 
 ## How to install the program
 
+Pre-requisite: mysql has to be installed on your computer.
 Please follow the next steps:
 * Open your terminal (Linux and MacOS) or Windows PowerShell (Windows).
 * Setup the path where you want to install the program:
@@ -37,7 +38,7 @@ Congratulations! You have completed the program installation.
 
 To do
 
-## How to use the programm (functional specifications), user stories
+## How to use the program (functional specifications), user stories
 
 Please follow the next steps:
 * Open your terminal (Linux and MacOS) or Windows PowerShell (Windows).

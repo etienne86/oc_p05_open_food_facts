@@ -16,7 +16,8 @@ GRANT ALL PRIVILEGES ON pur_beurre_05.* TO 'pur_guest'@'localhost';
 
 
 -- display the list of products in one category
-SELECT Product.id, Product.code FROM Product
+SELECT Product.id, Product.code, Product.nutrition_score_fr_100g
+FROM Product
 JOIN ProductCategory ON Product.id = ProductCategory.product_id
 JOIN Category ON ProductCategory.category_id = Category.id
-WHERE Category.id = 0;
+WHERE Category.id = 1;
