@@ -28,7 +28,7 @@ def main():
                                          database="pur_beurre_05"
                                         )
     prod_id = categ_id = 0
-    # initiate a menu instance
+    # declare a menu instance
     crt_menu = Menu()
     # run as long as the user does not ask to quit
     while crt_menu.status:
@@ -41,10 +41,10 @@ def main():
         elif crt_menu.status == ["main_menu", "categ_list",
                                  "prod_list", "suggested_sub"]:
             crt_menu.display_suggested_sub(connection, prod_id, categ_id)
-        elif crt_menu.status == ["my_subs"]:
-            crt_menu.display_my_subs()
-        elif crt_menu.status == ["my_subs", "sub_to_del"]:
-            crt_menu.display_sub_to_del()
+        elif crt_menu.status == ["main_menu", "my_subs"]:
+            crt_menu.display_my_subs(connection)
+        else:
+            raise ValueError(crt_menu.status)
     # close the connection to the database
     connection.close()
     print("\nA bientôt !\n")

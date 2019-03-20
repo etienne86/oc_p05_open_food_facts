@@ -10,7 +10,7 @@ from savedproduct import SavedProduct
 
 
 class Menu:
-    """This class is used to represent the menus used in the program."""
+    """This class is used to represent the menus in the program."""
 
     def __init__(self):
         """This special method is the class constructor."""
@@ -68,11 +68,43 @@ class Menu:
         else:
             raise ValueError(answer)
 
-    def display_my_subs(self):
+    def display_my_subs(self, connection):
         """This method is responsible for displaying
         the registered substitutes.
         """
-        pass #pass
+        print("\nVoici la liste des substituts enregistrés :\n")
+        # initiate a cursor
+        cursor = connection.cursor()
+        # get all data from SavedProduct table
+        cursor.execute("""SELECT sp.product_id,
+                                 sp.substitute_id,
+                                 DATE_FORMAT(sp.save_date, "%d/%m/%Y")
+                          FROM SavedProduct AS sp""")
+        saved_rows = cursor.fetchall() # type is list of tuples
+        # display all extended records in SavedProduct table
+        # (with data from Product table)
+        for tup in saved_rows:
+            # collect data from Product table for the product to be substituted
+            cursor.execute("""SELECT p.id,
+                                     p.code,
+                                     p.product_name
+                              FROM Product AS p
+                              WHERE p.id = %s""", (tup[0], ))
+            prod_row = cursor.fetchall() # list of 1 tuple
+            # collect data from Product table for the registered substitute
+            cursor.execute("""SELECT p.id,
+                                     p.code,
+                                     p.product_name
+                              FROM Product AS p
+                              WHERE p.id = %s""", (tup[1], ))
+            sub_row = cursor.fetchall() # list of 1 tuple
+            print(f"Enregistré le {tup[2]} :")
+            print(f"({prod_row[0][1]}) {prod_row[0][2]}")
+            print("Remplacé par")
+            print(f"({sub_row[0][1]}) {sub_row[0][2]}\n")
+        input("Appuyez sur Entrée pour continuer...")
+        # go back to the main menu
+        self.status = ["main_menu"]
 
     def display_prod(self, connection):
         """This method is responsible for displaying the list of products."""
@@ -82,13 +114,13 @@ class Menu:
         # initiate a cursor
         cursor = connection.cursor()
         # get each product_id, product_code and category_name
-        cursor.execute("""SELECT Product.id, Product.code, Product.product_name
-                          FROM Product
-                          JOIN ProductCategory
-                          ON Product.id = ProductCategory.product_id
-                          JOIN Category
-                          ON ProductCategory.category_id = Category.id
-                          WHERE Category.id = %s""", (categ_id, ))
+        cursor.execute("""SELECT p.id, p.code, p.product_name
+                          FROM Product AS p
+                          JOIN ProductCategory AS pc
+                          ON p.id = pc.product_id
+                          JOIN Category AS c
+                          ON pc.category_id = c.id
+                          WHERE c.id = %s""", (categ_id, ))
         prod_rows = cursor.fetchall() # list of tuples (id, code, product_name)
         prod_rows_list = [list(tup) for tup in prod_rows] # list of lists
         count = len(prod_rows)
@@ -121,22 +153,17 @@ class Menu:
             self.next("suggested_sub")
         return (prod_id, categ_id)
 
-    def display_sub_to_del(self):
-        """This method is responsible for displaying
-        the substitute to be deleted."""
-        pass #pass
-
     def display_suggested_sub(self, connection, prod_id, categ_id):
         """This method is responsible for displaying
         the suggested substitute."""
         # initiate a cursor
         cursor = connection.cursor()
         # get product code, name, nutrition grade and nutrition scores
-        cursor.execute("""SELECT Product.code, Product.product_name,
-                                 Product.nutrition_grade_fr,
-                                 Product.nutrition_score_fr_100g
-                          FROM Product
-                          WHERE Product.id = %s""", (prod_id, ))
+        cursor.execute("""SELECT p.code, p.product_name,
+                                 p.nutrition_grade_fr,
+                                 p.nutrition_score_fr_100g
+                          FROM Product AS p
+                          WHERE p.id = %s""", (prod_id, ))
         prod_rows = cursor.fetchall()
         if not prod_rows:
             raise ValueError(prod_id)
@@ -146,9 +173,9 @@ class Menu:
             print(f"({prod[0]}) - {prod[1]}")
             print(f"dont le nutri-score est {prod[2].upper()},")
             # get category name from category id
-            cursor.execute("""SELECT name
+            cursor.execute("""SELECT Category.name
                               FROM Category
-                              WHERE id = %s""", (categ_id, ))
+                              WHERE Category.id = %s""", (categ_id, ))
             categ_row = cursor.fetchall()
             if categ_row:
                 categ = Category(categ_row[0][0])
@@ -162,14 +189,14 @@ class Menu:
             print(f"dont le nutri-score est {best[4].upper()}.")
             print(f"Voici le lien d'une description du produit :\n{best[6]}")
             # get the possible store(s) where to buy this suggested product
-            cursor.execute("""SELECT Product.id,
-                                     Store.name
-                              FROM Product
-                              JOIN ProductStore
-                              ON ProductStore.product_id = Product.id
-                              JOIN Store
-                              ON ProductStore.store_id = Store.id
-                              WHERE Product.id = %s""", (best[1], ))
+            cursor.execute("""SELECT p.id,
+                                     s.name
+                              FROM Product AS p
+                              JOIN ProductStore AS ps
+                              ON ps.product_id = p.id
+                              JOIN Store AS s
+                              ON ps.store_id = s.id
+                              WHERE p.id = %s""", (best[1], ))
             store_rows = cursor.fetchall() # type is list of tuples
             # there has to be at least one row
             if len(store_rows) != 1 or store_rows[0][1] != "":
@@ -186,7 +213,7 @@ class Menu:
                 saved = SavedProduct(prod_id, best[1])
                 saved.add_saved_prod_to_db(connection)
             elif answer == "non":
-                pass
+                print("\nLe substitut n'a pas été enregistré.\n")
             else:
                 raise ValueError(answer)
             # go back to the main menu
