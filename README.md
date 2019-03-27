@@ -16,9 +16,10 @@ The user select a food in the terminal, then the program suggest an alternative 
 
 **En français ?** Suivez les indications du fichier LISEZMOI.md.
 
-Pre-requisites:
+Pre-requisite:
 * MySQL has to be installed on your computer, with a 'root' user already set up.
-* Please execute these lines of SQL code in MySQL terminal, logged as 'root':
+
+Please execute these lines of SQL code in MySQL terminal, logged as 'root':
 
     -- create a user
     CREATE USER 'pur_guest'@'localhost'; -- password is useless
