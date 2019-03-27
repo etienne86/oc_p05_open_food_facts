@@ -14,6 +14,8 @@ The user select a food in the terminal, then the program suggest an alternative 
 
 ## How to install the program
 
+**En français ?** Suivez les indications du fichier LISEZMOI.md.
+
 Pre-requisite: mysql has to be installed on your computer, with a 'root' user already set up.
 
 Please follow the next steps:
@@ -40,8 +42,8 @@ Congratulations! You have completed the program installation.
 
 ### Program architecture
 
-There are two folders :
-* `env` contains the virtual environment to run the program (once installed by the user: cf. chapter *How to install the program* in this document)
+Once the installation process completed by the user, there are two folders :
+* `env` contains the virtual environment to run the program (if necessary, cf. chapter *How to install the program* in this document)
 * `sql` contains the SQL file with requests to be executed first (with the user *root*) to create the database *pur_beurre_05* and the user *pur_guest*
 
 There are eight Python files:
@@ -55,6 +57,8 @@ There are eight Python files:
 [Link to Trello dashboard](https://trello.com/b/Q6r47F1d/e-barbier-oc-da-py-open-food-facts)
 
 ## How to use the program (for users), user stories
+
+**En français ?** Suivez les indications du fichier LISEZMOI.md.
 
 Please follow the next steps:
 * Open your terminal (Linux and MacOS) or Windows PowerShell (Windows).
@@ -153,7 +157,7 @@ I enter `2`, and valid with "Enter". The program displays the list of my saved f
 
 Next: US01
 
-### US10: I want to enter `0` in somes menus to go back to the previous menu
+### US10: I want to enter `0` in some menus to go back to the previous menu
 
 Previous: US03 or US04
 
