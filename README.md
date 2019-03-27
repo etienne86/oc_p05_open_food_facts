@@ -40,7 +40,15 @@ Congratulations! You have completed the program installation.
 
 ### Program architecture
 
-TO DO
+There are two folders :
+* `env` contains the virtual environment to run the program (once installed by the user: cf. chapter *How to install the program* in this document)
+* `sql` contains the SQL file with requests to be executed first (with the user *root*) to create the database *pur_beurre_05* and the user *pur_guest*
+
+There are eight Python files:
+* `db_init.py` and `substitute.py` are executed directly by the user
+* `category.py`, `product.py`, `savedproduct.py`and `store.py` are modules containing each one class which corresponds to a table in the database
+* `menu.py` is an additional class used to represent the different menus in the program
+* `sql_db_init.py` is a module containing strings used by the external module `mysql.connector` to execute SQL requests to create the database tables and the foreign keys
 
 ### Agile dashboard
 

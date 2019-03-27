@@ -16,7 +16,6 @@ class Store:
         """This method is responsible for adding
         a store to the database, if not already existing.
         """
-
         # initiate a cursor
         cursor = connexion.cursor()
         # check if the store already exists in database
@@ -28,4 +27,4 @@ class Store:
             cursor.execute("""INSERT INTO Store (name)
                               VALUES (%(name)s)""", self.__dict__)
             # commit the changes
-            connexion.commit()  
+            connexion.commit()

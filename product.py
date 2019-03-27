@@ -17,7 +17,7 @@ class Product:
 
     def add_product_category_to_db(self, category_name, connection):
         """This method is responsible for inserting a record,
-        in table ProductCategory, to link a product and a category.
+        in the table ProductCategory, to link a product and a category.
         """
         # initiate a cursor
         cursor = connection.cursor()
@@ -33,12 +33,12 @@ class Product:
         prod_row = cursor.fetchall()
         if prod_row:
             product_id = prod_row[0][0]
-        if categ_row and prod_row:    
+        if categ_row and prod_row:
             # check if the couple (product, category) already exists
             cursor.execute("""SELECT product_id, category_id
                               FROM ProductCategory
                               WHERE product_id = %s AND category_id = %s""",
-                              (product_id, category_id)
+                           (product_id, category_id)
                           )
             prod_categ_row = cursor.fetchall()
             if not prod_categ_row:
@@ -52,7 +52,7 @@ class Product:
 
     def add_product_store_to_db(self, store_name, connection):
         """This method is responsible for inserting a record,
-        in table ProductStore, to link a product and a store.
+        in the table ProductStore, to link a product and a store.
         """
         # initiate a cursor
         cursor = connection.cursor()
@@ -72,7 +72,7 @@ class Product:
             # check if the couple (product, store) already exists
             cursor.execute("""SELECT product_id, store_id FROM ProductStore
                               WHERE product_id = %s AND store_id = %s""",
-                              (product_id, store_id)
+                           (product_id, store_id)
                           )
             prod_store_row = cursor.fetchall()
             if not prod_store_row:

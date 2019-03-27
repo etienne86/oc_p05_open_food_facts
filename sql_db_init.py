@@ -1,9 +1,13 @@
 #! /usr/bin/env python3
 # coding: utf-8
 
-"""This module contains the strings used to initiate the database."""
+"""This module contains the strings used to initiate the database,
+with mysql.connector.
+This module is called by db_init.py.
+"""
 
 
+# create the tables
 SQL_TABLES_CREATIONS = [
     """
     CREATE TABLE Store (
@@ -60,6 +64,7 @@ SQL_TABLES_CREATIONS = [
     """
 ]
 
+# add the foreign keys
 SQL_FK = [
     """
     ALTER TABLE ProductStore

@@ -2,6 +2,7 @@
 -- as administrator (user 'root'), to create a user ('pur_guest'),
 -- a database ('pur_beurre_05'), and privileges for this user on this database.
 
+
 -- create a user
 CREATE USER 'pur_guest'@'localhost'; -- password is useless
 

@@ -6,9 +6,11 @@
 
 import random
 
+
 class Category:
     """This class is used to represent the categories,
-    used to classify the products."""
+    used to classify the products.
+    """
 
     CATEGORIES_LIST = [
         "desserts",
@@ -44,10 +46,10 @@ class Category:
             connection.commit()
 
     def best_prod(self, connection):
-        """This method is responsible for determining the best product
-        inside the category, considering nutrition data.
+        """This method is responsible for determining one best product
+        inside the category, considering the nutrition data.
         """
-        best_nutri_score_fr = -999
+        best_nutri_score_fr = -999 # initialize with a unreal value
         # initiate a cursor
         cursor = connection.cursor()
         # determine the best nutri-score in the category
@@ -73,24 +75,22 @@ class Category:
                           ON c.id = pc.category_id
                           WHERE p.nutrition_score_fr_100g = %s
                             AND c.name = %s""",
-                          (best_nutri_score_fr, self.name))
+                       (best_nutri_score_fr, self.name))
         rows = cursor.fetchall()
         # there has to be at least one line in rows
         rand = random.randint(0, len(rows) - 1)
         # select and return a random product among the best ones
         return rows[rand] # type is tuple
-        # (Category.name, Product.id, Product.code, Product.name,
-        #  Product.nutrition_grade_fr, Product.nutrition_score_fr_100g,
-        #  Product.url)
 
     def get_url_1k_products(self):
         """This method is responsible for supplying the search url,
-        which displays 1000 products, based on the category name."""
+        which displays 1000 products, based on the category name.
+        """
         if self.name in Category.CATEGORIES_LIST:
             res = "https://fr.openfoodfacts.org/cgi/search.pl?" \
                 + "action=process&tagtype_0=categories" \
                 + "&tag_contains_0=contains&tag_0=" \
                 + self.name + "&page_size=1000&json=1"
-            return res
         else:
-            return ""
+            res = ""
+        return res

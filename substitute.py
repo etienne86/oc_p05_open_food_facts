@@ -3,32 +3,28 @@
 
 """
 Please execute this module to replace your foodstuffs
-and register your substitutes.
+and save your substitutes.
+Warning: before executing this module,
+you should have executed first db_init.py.
 """
 
 
-# import re
-
 import mysql.connector
-# import requests
 
-#from category import Category
 from menu import Menu
-# from product import Product
-# from store import Store
 
 
 def main():
-    """doctrinsg"""
+    """This function is the main function to be executed to run the program."""
     print("\nBienvenue dans ce programme de remplacement d'aliments !",
-        "\nLes données sont issues du site d'OpenFoodFacts.\n")
+          "\nLes données sont issues du site d'OpenFoodFacts.")
     # connect to the database pur_beurre_05
     connection = mysql.connector.connect(host="localhost",
                                          user="pur_guest",
                                          database="pur_beurre_05"
                                         )
     prod_id = categ_id = 0
-    # declare a menu instance
+    # create a menu instance
     crt_menu = Menu()
     # run as long as the user does not ask to quit
     while crt_menu.status:
@@ -51,13 +47,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
-
-
-
-
-
-
-
-
