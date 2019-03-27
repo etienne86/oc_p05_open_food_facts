@@ -31,6 +31,7 @@ def main():
                                         )
     # initiate a cursor
     cursor = connection.cursor()
+    print("Installation en cours, veuillez patienter SVP...")
     ## part 1: initialize the database
     # create the tables
     for sql_request in sql_db_init.SQL_TABLES_CREATIONS:
@@ -91,6 +92,7 @@ def main():
                         prod.add_product_store_to_db(shop_name, connection)
     # close the connection to the database
     connection.close()
+    print("Installation terminée !")
 
 if __name__ == "__main__":
     main()
