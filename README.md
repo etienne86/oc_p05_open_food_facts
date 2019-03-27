@@ -16,7 +16,17 @@ The user select a food in the terminal, then the program suggest an alternative 
 
 **En français ?** Suivez les indications du fichier LISEZMOI.md.
 
-Pre-requisite: mysql has to be installed on your computer, with a 'root' user already set up.
+Pre-requisites:
+* MySQL has to be installed on your computer, with a 'root' user already set up.
+* Please execute these lines of SQL code in MySQL terminal, logged as 'root':
+
+    -- create a user
+    CREATE USER 'pur_guest'@'localhost'; -- password is useless
+    -- create the database pur_beurre_05
+    CREATE DATABASE pur_beurre_05 CHARACTER SET 'utf8mb4';
+    USE pur_beurre_05;
+    -- assign rights to this user on the database
+    GRANT ALL PRIVILEGES ON pur_beurre_05.* TO 'pur_guest'@'localhost';
 
 Please follow the next steps:
 * Open your terminal (Linux and MacOS) or Windows PowerShell (Windows).
@@ -32,10 +42,8 @@ Please follow the next steps:
     * `./env/scripts/activate.ps1` for Windows
 * Enter the following command to install the dependancies: `pip install -r requirements.txt`
 * Enter the following command to get the database initialized and filled in: `python db_init.py`
-* Enter the following command to deactivate the virtual environment:
-    * `source env/bin/deactivate` for Linux and MacOS
-    * `./env/scripts/activate.ps1` for Windows
-    
+* Enter the following command to deactivate the virtual environment: `deactivate` 
+
 Congratulations! You have completed the program installation.
 
 ## How to read the program (for programmers)
