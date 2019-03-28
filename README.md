@@ -115,7 +115,7 @@ Previous: US03
 The menu displays a list of nine foodstuffs. I enter a number between 1 and 9 to select the chosen foodstuff to replace, and valid with "Enter".
 
 Note — I can also:
-* browse pages to see all foodstuffs (cf. US 05)
+* browse pages to see all foodstuffs (cf. US05)
 * go back to the main menu if I enter `0` (cf. US10)
 
 Next: US06

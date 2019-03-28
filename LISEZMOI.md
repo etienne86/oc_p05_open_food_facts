@@ -5,7 +5,7 @@ Ceci est une notice d'installation et d'utilisation du programme en français, r
 ## Comment installer le programme
 
 Pre-requis:
-* MySQL doit être installer sur votre ordinateur, avec un utilisateur 'root' déjà paramétré en tant qu'administrateur.
+* MySQL doit être installé sur votre ordinateur, avec un utilisateur 'root' déjà paramétré en tant qu'administrateur.
 
 Veuillez exécuter ces lignes de code SQL dans le terminal MySQL, identifié en tant que 'root' :
 
@@ -22,9 +22,9 @@ Veuillez suivre les étapes suivantes :
 * Placez-vous sur le chemin où vous souhaitez installer le programme :
     * par exemple `cd this/is/my/path` sur Linux et MacOS
     * par exemple `cd C:\this\is\my\path` sur Windows
-* Saisissez la commande suivante pour rapatrier le répertoire depuis GitHub: `git clone https://github.com/etienne86/oc_p05_open_food_facts.git`.
+* Saisissez la commande suivante pour rapatrier le répertoire depuis GitHub : `git clone https://github.com/etienne86/oc_p05_open_food_facts.git`.
 * Placez-vous vers ce nouveau répertoire dans votre console.
-* Saisissez la commande suivante pour installer virtualenv (s'il n'est pas déjà installé): `pip install virtualenv`.
+* Saisissez la commande suivante pour installer virtualenv (s'il n'est pas déjà installé) : `pip install virtualenv`.
 * Saisissez la commande suivante pour installer l'environnement virtuel : `virtualenv env`.
 * Saisissez la commande suivante pour activer l'environnement virtuel :
     * `source env/bin/activate` sur Linux et MacOS
@@ -44,16 +44,16 @@ Veuillez suivre les étapes suivantes :
 * Saisissez la commande suivante pour activer l'environnement virtuel :
     * `source env/bin/activate` sur Linux et MacOS
     * `./env/scripts/activate.ps1` sur Windows
-* Saisissez la commande suivante pour  exécuter le programme principal : `python substitute.py`
+* Saisissez la commande suivante pour exécuter le programme principal : `python substitute.py`
 
 Ensuite, merci de suivre le guide indiqué dans les *user stories* ci-dessous : commencez avec US01.
 
 ### US01 : je veux voir le menu principal pour saisir mon choix
 
-Précédent : soit j'ai juste démarré le programme, soit j'ai décidé de revenir au menu principal (US07, US08, US09 or US10).
+Précédent : soit je viens de démarrer le programme, soit j'ai décidé de revenir au menu principal (US07, US08, US09 or US10).
 
 Le menu principal affiche trois choix possibles :
-1. Querl aliment souhaitez-vous remplacer ?
+1. Quel aliment souhaitez-vous remplacer ?
 2. Retrouver mes aliments substitués
 0. Quitter le programme
 
@@ -84,7 +84,7 @@ Précédent : US03
 Le menu affiche une liste de neuf aliments. Je saisis un chiffre entre 1 et 9 pour sélectionner l'aliment souhaité, et je valide avec "Entrée".
 
 Note — je peux également :
-* naviguer de page en page pour voir tous les aliments (cf. US 05)
+* naviguer de page en page pour voir tous les aliments (cf. US05)
 * retourner au menu principal si je saisis `0` (cf. US10)
 
 Suivant : US06
@@ -105,7 +105,7 @@ Suivant : US04
 
 Précédent : US04
 
-Le programme affiche et propose un aliment de substitution à mon produit sélectionné. Le menu affiche deux choix possibles :
+Le programme affiche et propose un aliment de substitution au produit que j'ai sélectionné. Le menu affiche deux choix possibles :
 * `oui` si je veux sauvegarder le substitut proposé
 * `non` si je ne veux pas sauvegarder le substitut proposé
 
