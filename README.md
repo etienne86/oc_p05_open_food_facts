@@ -92,7 +92,7 @@ Next: I enter either `1` (cf. US02), or `2` (cf. US09), or `0` (cf. US11).
 
 ### US02: I want to enter `1` in the main menu to display the food categories
 
-Previous: I was on the main menu (US01).
+Previous: I was on the main menu (US01)
 
 I enter `1`, and valid with "Enter".
 
@@ -136,7 +136,7 @@ Next: US04
 
 Previous: US04
 
-The program displays and suggest a substitute foodstuff to my selected product. The main menu displays two choices:
+The program displays and suggest a substitute foodstuff to my selected product. The menu displays two choices:
 * `oui` if I want to save the suggested substitute
 * `non` if I do not want to save the suggested substitute
 
@@ -160,7 +160,7 @@ Next: US01
 
 ### US09: I want to enter `2` in the main menu to display my saved foodstuffs
 
-Previous: I was on the main menu (US01).
+Previous: I was on the main menu (US01)
 
 I enter `2`, and valid with "Enter". The program displays the list of my saved foodstuffs (origin food and substitute food), with the record date. I valid with "Enter" to go back to the main menu.
 
@@ -176,7 +176,7 @@ Next: US01 (if previous was US03) or US03 (if previous was US04)
 
 ### US11: I want to enter `0` in the main menu to quit the program
 
-Previous: US01
+Previous: I was on the main menu (US01)
 
 I enter `0`, and valid with "Enter".
 The program ends and quits.
